@@ -88,7 +88,7 @@ class BaseSpider(scrapy.Spider):
         if response.xpath("//a[contains(@class, 'hidden-crumb-xs')]/text()").get().strip() != "Processors":
             raise scrapy.exceptions.CloseSpider("Processors not found in crumb")
 
-        for link in response.xpath("//tr/td/a/@href"):
+        for link in response.xpath("//tr/td/div/a/@href"):
             if link.root.find("/products/") == -1:
                 self.logger.error("product not found from link, skipping")
                 continue
