@@ -4,7 +4,7 @@ import json
 import re
 from pathlib import Path
 
-rootProps = ['id', 'name', 'number', 'URL', 'socket', 'price']
+rootProps = ['id', 'name', 'number', 'URL', 'socket']
 reSubs = [(re.compile(pat), sub) for pat, sub in [
     (r"^" + '|'.join(rootProps) + "$", r''),
     (r"^None$", r''),
@@ -24,7 +24,6 @@ reSubs = [(re.compile(pat), sub) for pat, sub in [
 ]]
 
 meta = json.load(open('items/cpuspecs/_legend.json'))
-prices = json.load(open('items/cpuspecs/cpuprices.json'))
 
 def tryUnitsToNum(value: str):
     value = str(value)
@@ -64,12 +63,12 @@ with open('output.csv', 'w') as out:
     out.write(';'.join(header) + '\n')
 
     for fn in Path('items').rglob('*.json'):
-        if fn.name.lower() in ['_legend.json', 'cpuprices.json']:
+        if fn.name.lower() in ['_legend.json']:
             continue
         with open(fn) as f:
             data = json.load(f)
-            cpuid = str(data["id"])
-            data["price"] = prices[cpuid] if cpuid in prices else ""
+            if data.get("id") is None:
+                continue
             line = [tryUnitsToNum(data[col]) if col in data else col for col in rootProps]
             for m in meta:
                 datam = data[m] if m in data else {}
