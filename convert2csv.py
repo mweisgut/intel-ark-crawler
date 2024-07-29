@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 # taken from https://github.com/barbalion/scrapy-intel-ark
 
 import json
