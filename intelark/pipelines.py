@@ -44,20 +44,22 @@ class IntelarkPipeline(object):
         basepath = os.path.abspath(os.path.join("..", "items", "cpuspecs"))
         fullpath = os.path.abspath(os.path.join(basepath, "tmp"))
 
-        if "id" in item:
-            fname = item["id"] + ".json"
-        else:
-            fname = item["name"] + ".json"
+        # if "id" in item:
+        #     fname = item["id"] + ".json"
+        # else:
+        fname = item["name"] + ".json"
 
         if isinstance(item, CPUSpecsItem):
             # path for saving
-            fpath = os.path.abspath(os.path.join(basepath, item["socket"]))
+            # fpath = os.path.abspath(os.path.join(basepath, item["socket"]))
+            fpath = os.path.abspath(os.path.join(basepath, item["Essentials"]["MarketSegment"]))
             self.create_path(fpath)
             fullpath = os.path.join(fpath, fname)
 
         elif isinstance(item, CPUSpecsUnknownItem):
             # path for saving
-            fpath = os.path.abspath(os.path.join(basepath, "_unknown", item["Essentials"]["MarketSegment"]))
+            # fpath = os.path.abspath(os.path.join(basepath, "_unknown", item["Essentials"]["MarketSegment"]))
+            fpath = os.path.abspath(os.path.join(basepath, item["Essentials"]["MarketSegment"]))
             self.create_path(fpath)
             fullpath = os.path.join(fpath, fname)
 

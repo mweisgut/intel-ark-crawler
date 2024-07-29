@@ -7,10 +7,8 @@ class BaseItem(dict):
 class CPUSpecsItem(BaseItem):
     pass
 
-
 class CPUSpecsUnknownItem(BaseItem):
     pass
-
 
 # all keys/values from CPU specifications
 # for humans
